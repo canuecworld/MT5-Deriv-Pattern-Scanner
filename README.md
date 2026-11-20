@@ -24,11 +24,36 @@ The dashboard and CSV are designed to compare instruments within one multi-symbo
 
 The following is an example configuration to investigate in the MT5 Strategy Tester. It is not a recommendation for live trading.
 
-### Volatility 50 (1s) Index
+## Configuration reference
 
-- Entry timeframe: M5
-- Momentum bias timeframe: H4
-- Proposed risk per trade: 12% of equity
-- Target reward-to-risk ratio: 1:3
+The Expert Advisor exposes the following inputs in MT5:
 
-Risk warning: A 12% risk allocation is highly aggressive and can result in substantial drawdowns. Test with historical data and demo trading, and investigate lower risk settings before considering live deployment.
+| Input | Default | Purpose |
+|---|---|---|
+| `InpSymbols` | Boom/Crash indices, Volatility 25 (1s), Volatility 75 (1s), Step Index | Comma-separated list of symbols to scan. |
+| `InpSignalTimeframe` | M15 | Timeframe used to identify trading patterns and entries. |
+| `InpBiasTimeframe` | H1 | Higher timeframe used to determine momentum bias. |
+| `InpScanSeconds` | 5 | Interval between scanning cycles, in seconds. |
+| `InpLookbackBars` | 180 | Number of historical bars considered during analysis. |
+| `InpPivotRadius` | 3 | Number of surrounding bars used when identifying swing points. |
+| `InpMomentumPeriod` | 20 | Period used for momentum calculations. |
+| `InpMinMomentumATR` | 0.15 | Minimum momentum threshold, measured in ATR units. |
+| `InpATRPeriod` | 14 | Period used to calculate the Average True Range. |
+| `InpPatternToleranceATR` | 0.35 | Allowed difference between pattern levels, measured in ATR units. |
+| `InpMinPatternDepthATR` | 1.0 | Minimum pattern depth, measured in ATR units. |
+| `InpZoneImpulseATR` | 1.2 | Minimum impulse size used when identifying supply and demand zones. |
+| `InpZoneMaxAgeBars` | 80 | Maximum age of a zone, measured in bars. |
+| `InpRiskPercent` | 0.50 | Percentage of equity used to calculate trade risk. |
+| `InpRewardRiskMinimum` | 1.0 | Minimum reward-to-risk ratio required for an entry. |
+| `InpMaxPositionsPerSymbol` | 1 | Maximum permitted positions per symbol. |
+| `InpMagic` | 25112026 | Magic number used to identify the EA's trades. |
+| `InpDeviationPoints` | 30 | Maximum permitted price deviation, in points. |
+| `InpAllowLongs` | true | Enables buy trades. |
+| `InpAllowShorts` | true | Enables sell trades. |
+| `InpShowDashboard` | true | Enables or disables the on-chart dashboard. |
+| `InpWriteCSV` | true | Enables or disables CSV reporting. |
+| `InpCSVFile` | DerivPatternScanner_results.csv | CSV filename used for reporting. |
+
+### Customising the symbols
+
+The default symbol list does not include every Deriv synthetic index. To test another instrument, add its exact broker symbol to `InpSymbols`. Remove instruments you do not want the EA to scan.

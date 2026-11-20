@@ -18,3 +18,54 @@
 4. The dashboard reports closed-trade count, win rate, net profit, profit factor, and latest scan status per symbol. A CSV with the same per-symbol results is written to the terminal Common Files folder as `DerivPatternScanner_results.csv` by default.
 
 The dashboard and CSV are designed to compare instruments within one multi-symbol test. The EA does not claim that these pattern and zone definitions are profitable; use tester results and demo forward-testing to tune the inputs before live use.
+
+
+## Development notes
+
+### Project improvements
+
+The documentation was improved to explain the EA's strategy behaviour, MT5 setup, configurable inputs, and how to customise the symbols being scanned. These changes make the project easier to configure, test, and understand.
+
+### Git workflow
+
+The improvements were developed on a separate feature branch rather than directly on the main development branch. Changes were reviewed using `git status` and `git diff`, staged with `git add`, and saved as individual commits using `git commit`.
+
+The feature branch will be published to GitHub, reviewed through a Pull Request, and merged into `main`.
+
+### Lessons learned
+
+One important distinction was between the working directory, staging area, and commit history. `git add` selects changes for the next commit, while `git commit` records those selected changes in the local repository. A branch allows improvements to be developed separately before they are merged.
+
+## Configuration reference
+
+The Expert Advisor exposes the following inputs in MT5:
+
+| Input | Default | Purpose |
+|---|---|---|
+| `InpSymbols` | Boom/Crash indices, Volatility 25 (1s), Volatility 75 (1s), Step Index | Comma-separated list of symbols to scan. |
+| `InpSignalTimeframe` | M15 | Timeframe used to identify trading patterns and entries. |
+| `InpBiasTimeframe` | H1 | Higher timeframe used to determine momentum bias. |
+| `InpScanSeconds` | 5 | Interval between scanning cycles, in seconds. |
+| `InpLookbackBars` | 180 | Number of historical bars considered during analysis. |
+| `InpPivotRadius` | 3 | Number of surrounding bars used when identifying swing points. |
+| `InpMomentumPeriod` | 20 | Period used for momentum calculations. |
+| `InpMinMomentumATR` | 0.15 | Minimum momentum threshold, measured in ATR units. |
+| `InpATRPeriod` | 14 | Period used to calculate the Average True Range. |
+| `InpPatternToleranceATR` | 0.35 | Allowed difference between pattern levels, measured in ATR units. |
+| `InpMinPatternDepthATR` | 1.0 | Minimum pattern depth, measured in ATR units. |
+| `InpZoneImpulseATR` | 1.2 | Minimum impulse size used when identifying supply and demand zones. |
+| `InpZoneMaxAgeBars` | 80 | Maximum age of a zone, measured in bars. |
+| `InpRiskPercent` | 0.50 | Percentage of equity used to calculate trade risk. |
+| `InpRewardRiskMinimum` | 1.0 | Minimum reward-to-risk ratio required for an entry. |
+| `InpMaxPositionsPerSymbol` | 1 | Maximum permitted positions per symbol. |
+| `InpMagic` | 25112026 | Magic number used to identify the EA's trades. |
+| `InpDeviationPoints` | 30 | Maximum permitted price deviation, in points. |
+| `InpAllowLongs` | true | Enables buy trades. |
+| `InpAllowShorts` | true | Enables sell trades. |
+| `InpShowDashboard` | true | Enables or disables the on-chart dashboard. |
+| `InpWriteCSV` | true | Enables or disables CSV reporting. |
+| `InpCSVFile` | DerivPatternScanner_results.csv | CSV filename used for reporting. |
+
+### Customising the symbols
+
+The default symbol list does not include every Deriv synthetic index. To test another instrument, add its exact broker symbol to `InpSymbols`. Remove instruments you do not want the EA to scan.

@@ -18,3 +18,17 @@
 4. The dashboard reports closed-trade count, win rate, net profit, profit factor, and latest scan status per symbol. A CSV with the same per-symbol results is written to the terminal Common Files folder as `DerivPatternScanner_results.csv` by default.
 
 The dashboard and CSV are designed to compare instruments within one multi-symbol test. The EA does not claim that these pattern and zone definitions are profitable; use tester results and demo forward-testing to tune the inputs before live use.
+
+
+## Example configuration for testing
+
+The following is an example configuration to investigate in the MT5 Strategy Tester. It is not a recommendation for live trading.
+
+### Volatility 50 (1s) Index
+
+- Entry timeframe: M5
+- Momentum bias timeframe: H4
+- Proposed risk per trade: 12% of equity
+- Target reward-to-risk ratio: 1:3
+
+Risk warning: A 12% risk allocation is highly aggressive and can result in substantial drawdowns. Test with historical data and demo trading, and investigate lower risk settings before considering live deployment.

@@ -20,9 +20,21 @@
 The dashboard and CSV are designed to compare instruments within one multi-symbol test. The EA does not claim that these pattern and zone definitions are profitable; use tester results and demo forward-testing to tune the inputs before live use.
 
 
-## Example configuration for testing
+## Development notes
 
-The following is an example configuration to investigate in the MT5 Strategy Tester. It is not a recommendation for live trading.
+### Project improvements
+
+The documentation was improved to explain the EA's strategy behaviour, MT5 setup, configurable inputs, and how to customise the symbols being scanned. These changes make the project easier to configure, test, and understand.
+
+### Git workflow
+
+The improvements were developed on a separate feature branch rather than directly on the main development branch. Changes were reviewed using `git status` and `git diff`, staged with `git add`, and saved as individual commits using `git commit`.
+
+The feature branch will be published to GitHub, reviewed through a Pull Request, and merged into `main`.
+
+### Lessons learned
+
+One important distinction was between the working directory, staging area, and commit history. `git add` selects changes for the next commit, while `git commit` records those selected changes in the local repository. A branch allows improvements to be developed separately before they are merged.
 
 ## Configuration reference
 
